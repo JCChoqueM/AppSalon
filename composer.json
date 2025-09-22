@@ -1,6 +1,7 @@
 {
-    "name": "d-dr5/bienes-raices-poo_php_inicio",
-    "description": "creando un proyecyo con POO",
+    "name": "d-dr5/app-salon_php_mvc_js_sass",
+    "description": "cProyecto PHP 8, MVC, SQL, SASS ,GULP",
+    "type":"project",
     "authors": [
         {
             "name": "Julio Cesar Choque Mamani",
@@ -15,9 +16,9 @@
     },
     "autoload": {
         "psr-4": {
-            "Model\\" : "./models",
             "MVC\\" : "./",
             "Controllers\\" : "./controllers",
+            "Model\\" : "./models",
             "View\\" : "./views"
         }
     }
