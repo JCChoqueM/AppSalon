@@ -1,0 +1,24 @@
+{
+    "name": "d-dr5/bienes-raices-poo_php_inicio",
+    "description": "creando un proyecyo con POO",
+    "authors": [
+        {
+            "name": "Julio Cesar Choque Mamani",
+            "email": "122507585+JCChoqueM@users.noreply.github.com"
+        }
+    ],
+    "require": {
+        "intervention/image": "^3.11",
+        "symfony/mailer": "^7.3",
+        "phpmailer/phpmailer": "^6.10",
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Model\\" : "./models",
+            "MVC\\" : "./",
+            "Controllers\\" : "./controllers",
+            "View\\" : "./views"
+        }
+    }
+}
