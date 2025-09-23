@@ -7,16 +7,16 @@
         <input
             type="email"
             id="email"
-            name="email"
-            placeholder="Tu Email">
+            placeholder="Tu Email"
+            name="email">
     </div>
-    <div class="password">
+    <div class="campo">
         <label for="password">Password</label>
         <input
             type="password"
             id="password"
-            name="password"
-            placeholder="Tu Password">
+            placeholder="Tu Password"
+            name="password">
     </div>
     <input type="submit" class="boton" value="Iniciar Sesión">
 
