@@ -39,7 +39,7 @@ class Usuario extends ActiveRecord
         if (!$this->apellido) {
             self::$alertas['error'][] = 'El Apellido es Obligatorio';
         }
-/*         if (!$this->email) {
+         if (!$this->email) {
             self::$alertas['error'][] = 'El Email es Obligatorio';
         }
         if (!$this->password) {
@@ -50,7 +50,7 @@ class Usuario extends ActiveRecord
         }
         if (!$this->telefono) {
             self::$alertas['error'][] = 'El Telefono es Obligatorio';
-        } */
+        } 
 
         return self::$alertas;
     }

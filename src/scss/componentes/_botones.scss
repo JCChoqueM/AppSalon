@@ -2,6 +2,6 @@
 @use 'base/variables' as v;
 
 .boton {
-    @include m.boton(v.$azul, v.$blanco);
     margin-top: 2rem;
+    @include m.boton(v.$azul, v.$blanco);
 }
