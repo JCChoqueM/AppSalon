@@ -2,15 +2,47 @@
 
 namespace Classes;
 
+use PHPMailer\PHPMailer\PHPMailer;
+
 class Email
 {
     public $email;
     public $nombre;
     public $token;
 
-    public function __construct($email, $nombre, $token) {
+    public function __construct($email, $nombre, $token)
+    {
         $this->email = $email;
         $this->nombre = $nombre;
         $this->token = $token;
+    }
+    public function enviarConfirmacion()
+    {
+        //Crear el objeto de email
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->Host = 'smtp.ethereal.email';
+        $mail->SMTPAuth = true;
+        $mail->Port = 587;
+        $mail->Username = 'amalia79@ethereal.email';
+        $mail->Password = 'acxMPjWDaQD28meq1k';
+
+        $mail->setFrom('cuentas@appsalon.com');
+        $mail->addAddress('cuentas@appsalon.com', 'AppSalon.com');
+        $mail->Subject = 'Confirma tu Cuenta';
+
+        //Set HTML
+        $mail->isHTML(true);
+        $mail->CharSet = 'UTF-8';
+
+        $contenido = '<html>';
+        $contenido .= "<p><strong>Hola " . $this->nombre . "</strong> Has Creado tu cuenta en App Salon, solo debes confirmarla en el siguiente enlace</p>";
+        $contenido .= "<p>Presiona Aqui: <a href='http://localhost:3000/confirmar-cuenta?token=" . $this->token . "'>Confirmar Cuenta</a></p>";
+        $contenido .= "<p>Si tu no creaste esta cuenta, puedes ignorar el mensaje</p>";
+        $contenido .= '</html>';
+        $mail->Body = $contenido;
+
+        //Enviar el email
+        $mail->send();
     }
 }
