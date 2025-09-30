@@ -19,7 +19,8 @@
             "MVC\\" : "./",
             "Controllers\\" : "./controllers",
             "Model\\" : "./models",
-            "View\\" : "./views"
+            "View\\" : "./views",
+            "Classes\\" : "./classes"
         }
     }
 }
