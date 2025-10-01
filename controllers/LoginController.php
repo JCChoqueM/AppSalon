@@ -77,6 +77,7 @@ class LoginController
         $alertas = [];
         $token = s($_GET['token']);
         $usuario = Usuario::where('token', $token);
+    
 
         if (empty($usuario)) {
             //Mostrar mensaje de error
@@ -85,7 +86,6 @@ class LoginController
         } else {
             //Modificar a usuario confirmado
             $usuario->confirmado = "1";
-   
             $usuario->token = null;
             $usuario->guardar();
             Usuario::setAlerta('exito', 'Cuenta Comprobada Correctamente');

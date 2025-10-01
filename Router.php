@@ -4,65 +4,61 @@ namespace MVC;
 
 class Router
 {
-
-    public $rutasGET = [];
-    public $rutasPOST = [];
+    public array $getRoutes = [];
+    public array $postRoutes = [];
 
     public function get($url, $fn)
     {
-
-        $this->rutasGET[$url] = $fn;
+        $this->getRoutes[$url] = $fn;
     }
+
     public function post($url, $fn)
     {
-        $this->rutasPOST[$url] = $fn;
+        $this->postRoutes[$url] = $fn;
     }
 
     public function comprobarRutas()
     {
+        
+        // Proteger Rutas...
         session_start();
-        $auth = $_SESSION['login'] ?? null;
 
-        //Arreglo de rutas protegidas
-        $rutasProtegidas = ['/admin', '/propiedades/crear', '/propiedades/actualizar', '/propiedades/eliminar', '/vendedores/crear', '/vendedores/actualizar', '/vendedores/eliminar'];
+        // Arreglo de rutas protegidas...
+        // $rutas_protegidas = ['/admin', '/propiedades/crear', '/propiedades/actualizar', '/propiedades/eliminar', '/vendedores/crear', '/vendedores/actualizar', '/vendedores/eliminar'];
 
-        $urlActual = strtok($_SERVER['REQUEST_URI'], '?') ?? '/'; /*  $urlActual = $_SERVER['PATH_INFO'] ?? '/'; */
-        $metodo = $_SERVER['REQUEST_METHOD'];
+        // $auth = $_SESSION['login'] ?? null;
 
-        if ($metodo === 'GET') {;
-            $fn = $this->rutasGET[$urlActual] ?? null;
+        $currentUrl = $_SERVER['PATH_INFO'] ?? '/';
+        $method = $_SERVER['REQUEST_METHOD'];
+
+        if ($method === 'GET') {
+            $fn = $this->getRoutes[$currentUrl] ?? null;
         } else {
-
-            $fn = $this->rutasPOST[$urlActual] ?? null;
+            $fn = $this->postRoutes[$currentUrl] ?? null;
         }
 
-        //Proteger rutas
-        if (in_array($urlActual, $rutasProtegidas) && !$auth) {
-            header('Location: /');
-        }
 
-        if ($fn) {
-            //La url existe y hay una fn asociada  
-
-            call_user_func($fn, $this);
+        if ( $fn ) {
+            // Call user fn va a llamar una función cuando no sabemos cual sera
+            call_user_func($fn, $this); // This es para pasar argumentos
         } else {
-
-            echo "Pagina no encontrada o ruta no válida";
+            echo "Página No Encontrada o Ruta no válida";
         }
     }
 
-    //Muestra una vista
     public function render($view, $datos = [])
     {
+
+        // Leer lo que le pasamos  a la vista
         foreach ($datos as $key => $value) {
-
-
-            $$key = $value;
+            $$key = $value;  // Doble signo de dolar significa: variable variable, básicamente nuestra variable sigue siendo la original, pero al asignarla a otra no la reescribe, mantiene su valor, de esta forma el nombre de la variable se asigna dinamicamente
         }
-        ob_start();
-        include __DIR__ . "/views/$view.php";
-        $contenido = ob_get_clean();
 
-        include __DIR__ . "/views/layout.php";
+        ob_start(); // Almacenamiento en memoria durante un momento...
+
+        // entonces incluimos la vista en el layout
+        include_once __DIR__ . "/views/$view.php";
+        $contenido = ob_get_clean(); // Limpia el Buffer
+        include_once __DIR__ . '/views/layout.php';
     }
 }
