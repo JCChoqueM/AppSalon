@@ -32,14 +32,15 @@ class Usuario extends ActiveRecord
     }
 
     //mensajes de validación para la creación de una cuenta
-    public function validarNuevaCuenta() {
+    public function validarNuevaCuenta()
+    {
         if (!$this->nombre) {
             self::$alertas['error'][] = 'El Nombre es Obligatorio';
         }
         if (!$this->apellido) {
             self::$alertas['error'][] = 'El Apellido es Obligatorio';
         }
-         if (!$this->email) {
+        if (!$this->email) {
             self::$alertas['error'][] = 'El Email es Obligatorio';
         }
         if (!$this->password) {
@@ -50,39 +51,53 @@ class Usuario extends ActiveRecord
         }
         if (!$this->telefono) {
             self::$alertas['error'][] = 'El Telefono es Obligatorio';
-        } 
+        }
 
         return self::$alertas;
     }
-public function validarLogin() {
-    if(!$this->email) {
-        self::$alertas['error'][] = 'El Email es Obligatorio';
+    public function validarLogin()
+    {
+        if (!$this->email) {
+            self::$alertas['error'][] = 'El Email es Obligatorio';
+        }
+        if (!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
+            self::$alertas['error'][] = 'Email no Valido';
+        }
+        if (!$this->password) {
+            self::$alertas['error'][] = 'El Password es Obligatorio';
+        }
+        return self::$alertas;
     }
-    if(!filter_var($this->email, FILTER_VALIDATE_EMAIL)) {
-        self::$alertas['error'][] = 'Email no Valido';
-    }
-    if(!$this->password) {
-        self::$alertas['error'][] = 'El Password es Obligatorio';
-    }
-    return self::$alertas;
-}
 
-    public function existeUsuario() {
+    public function existeUsuario()
+    {
         $query = "SELECT * FROM " . self::$tabla . " WHERE email = '" . self::$db->escape_string($this->email) . "' LIMIT 1";
-   
+
         $resultado = self::$db->query($query);
-  
+
         if ($resultado->num_rows) {
             self::$alertas['error'][] = 'El Usuario ya esta registrado';
         }
         return $resultado;
     }
 
-    public function hashPassword() {
+    public function hashPassword()
+    {
         $this->password = password_hash($this->password, PASSWORD_BCRYPT);
     }
 
-    public function crearToken() {
+    public function crearToken()
+    {
         $this->token = uniqid();
+    }
+
+    public function comprobarPasswordAndVerificado($password)
+    {
+        $resultado = password_verify($password, $this->password);
+        if (!$resultado || !$this->confirmado) {
+            self::$alertas['error'][] = 'Password Incorrecto o tu cuenta no ha sido confirmada';
+        } else {
+            return true;
+        }
     }
 }
