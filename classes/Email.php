@@ -45,4 +45,34 @@ class Email
         //Enviar el email
         $mail->send();
     }
+    
+    public function enviarInstrucciones()
+    {
+               //Crear el objeto de email
+        $mail = new PHPMailer();
+        $mail->isSMTP();
+        $mail->Host = 'smtp.ethereal.email';
+        $mail->SMTPAuth = true;
+        $mail->Port = 587;
+        $mail->Username = 'amalia79@ethereal.email';
+        $mail->Password = 'acxMPjWDaQD28meq1k';
+
+        $mail->setFrom('cuentas@appsalon.com');
+        $mail->addAddress('cuentas@appsalon.com', 'AppSalon.com');
+        $mail->Subject = 'Reestablece tu password';
+
+        //Set HTML
+        $mail->isHTML(true);
+        $mail->CharSet = 'UTF-8';
+
+        $contenido = '<html>';
+        $contenido .= "<p><strong>Hola " . $this->nombre . "</strong> Has solicitado resstablecer tu password, sigue el siguiente enlace</p>";
+        $contenido .= "<p>Presiona Aqui: <a href='http://localhost:3000/recuperar?token=" . $this->token . "'>Reestablecer Password</a></p>";
+        $contenido .= "<p>Si tu no creaste esta cuenta, puedes ignorar el mensaje</p>";
+        $contenido .= '</html>';
+        $mail->Body = $contenido;
+
+        //Enviar el email
+        $mail->send();
+}
 }

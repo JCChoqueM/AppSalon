@@ -168,6 +168,7 @@ class ActiveRecord {
 
         // Actualizar BD
         $resultado = self::$db->query($query);
+   
         return $resultado;
     }
 
