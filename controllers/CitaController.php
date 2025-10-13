@@ -1,0 +1,19 @@
+<?php
+
+namespace Controllers;
+
+use Model\Cita;
+use Model\CitaServicio;
+use Model\Servicio;
+use MVC\Router;
+
+class CitaController {
+    public static function index(Router $router) {
+       
+        
+
+        $router->render('cita/index', [
+          
+        ]);
+    }
+}
