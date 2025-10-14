@@ -3,20 +3,43 @@
 <div id="app">
     <div id="paso-1" class="seccion">
         <h2>Servicios</h2>
-        <p>Elije tus servicios a continuacion</p>
+        <p class="text-center">Elije tus servicios a continuacion</p>
         <div id="servicios" class="listado-servicios">
 
         </div>
     </div>
     <div id="paso-2" class="seccion">
         <h2>Servicios</h2>
-        <p>Coloca tus datos y fecha de tu cita</p>
+        <p class="text-center">Coloca tus datos y fecha de tu cita</p>
+        <form action="" class="formulario">
+            <div class="campo">
+                <label for="nombre">Nombre</label>
+                <input
+                    id="nombre"
+                    type="text"
+                    placeholder="Tu Nombre"
+                    value="<?php echo $nombre; ?>"
+                    disabled>
+            </div>
+            <div class="campo">
+                <label for="fecha">Fecha</label>
+                <input
+                    id="fecha"
+                    type="date">
+            </div>
+            <div class="campo">
+                <label for="hora">Hora</label>
+                <input
+                    id="hora"
+                    type="time">
 
+            </div>
+        </form>
 
     </div>
     <div id="paso-3" class="seccion">
         <h2>resumen</h2>
-        <p>verficia que la informacion sea correcta</p>
+        <p class="text-center">verficia que la informacion sea correcta</p>
 
     </div>
 
