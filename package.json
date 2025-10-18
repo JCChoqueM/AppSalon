@@ -7,6 +7,7 @@
     "sass": "sass --watch src/scss:build/css",
     "tarea": "gulp tarea",
     "dev": "gulp dev",
+    "devv": "gulp devv",
     "build": "gulp build"
   },
   "keywords": [
