@@ -124,4 +124,4 @@ exports.dev = parallel(css, imagenes, versionWebp, versionAvif, javascript, dev)
 /* !SECTION fin - ejecutar varias tareas al mismo tiempo */
 // Nueva tarea que solo procesa CSS y JavaScript
 exports.devv = parallel(css, javascript, dev);
-exports.build = parallel(css, javascript, imagenes,versionWebp, versionAvif);
+exports.build = parallel(css, imagenes, versionWebp, versionAvif, javascript);
