@@ -2,7 +2,6 @@ let paso = 1;
 const pasoInicial = 1;
 const pasoFinal = 3;
 
-
 document.addEventListener('DOMContentLoaded', function () {
   iniciarApp();
 });
@@ -13,6 +12,7 @@ function iniciarApp() {
   botonesPaginador(); // Agrega o quita los botones de la paginacion
   paginaAnterior();
   paginaSiguiente();
+  consultarAPI();
 }
 function mostrarSeccion() {
   //Ocultar la seccion anterior
@@ -71,11 +71,10 @@ function paginaAnterior() {
     if (paso <= pasoInicial) {
       return;
     }
-    
+
     paso--;
 
     botonesPaginador();
-
   });
 }
 
@@ -89,4 +88,16 @@ function paginaSiguiente() {
 
     botonesPaginador();
   });
+}
+
+async function consultarAPI() {
+  try {
+    const url = 'http://localhost:3000/api/servicios';
+    const resultado = await fetch(url);
+    const servicios = await resultado.json();
+console.log(servicios);
+
+  } catch (error) {
+    console.log(error);
+  }
 }
