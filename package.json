@@ -8,7 +8,8 @@
     "tarea": "gulp tarea",
     "dev": "gulp dev",
     "devv": "gulp devv",
-    "build": "gulp build"
+    "build": "gulp build",
+    "ninja": "http-server ."
   },
   "keywords": [
     "SASS",
