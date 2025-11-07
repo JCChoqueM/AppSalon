@@ -136,9 +136,18 @@ function mostrarServicios(servicios) {
 function seleccionarServicio(servicio) {
   const { id } = servicio;
   const { servicios } = cita;
-
-  cita.servicios = [...servicios, servicio];
+  //Identificar al servicio seleccionado
   const divServicio = document.querySelector(`[data-id-servicio="${id}"]`);
-  divServicio.classList.add('seleccionado');
-  console.log(servicio);
+  //Comprobar si el servicio ya esta agregado
+  if (servicios.some((agregado) => agregado.id === id)) {
+    //Elimina el servicio
+    cita.servicios = servicios.filter((agregado) => agregado.id !== id);
+    divServicio.classList.remove('seleccionado');
+  } else {
+    //Agrega el nuevo servicio
+    cita.servicios = [...servicios, servicio];
+    divServicio.classList.add('seleccionado');
+  }
+
+  console.log(cita);
 }
