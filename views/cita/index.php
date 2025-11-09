@@ -46,7 +46,7 @@
         </form>
 
     </div>
-    <div id="paso-3" class="seccion">
+    <div id="paso-3" class="seccion contenido-resumen">
         <h2>resumen</h2>
         <p class="text-center">verficia que la informacion sea correcta</p>
     </div>
