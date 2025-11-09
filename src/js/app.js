@@ -10,6 +10,62 @@ const cita = {
 
 document.addEventListener('DOMContentLoaded', function () {
   iniciarApp();
+  //section - Inicio boton autollenar
+  // Agregar botón que solo llena campos (no toca nombre) y selecciona 1-4 servicios al azar
+  const formulario = document.querySelector('.formulario');
+  if (formulario) {
+    const btnAuto = document.createElement('button');
+    btnAuto.type = 'button'; // evitar submit
+    btnAuto.textContent = 'Autollenar';
+    btnAuto.classList.add('boton');
+    formulario.appendChild(btnAuto);
+
+    btnAuto.addEventListener('click', function () {
+      // Fecha: siguiente día hábil
+      const fecha = new Date();
+      fecha.setDate(fecha.getDate() + 1);
+      while ([0, 6].includes(fecha.getUTCDay())) {
+        fecha.setDate(fecha.getDate() + 1);
+      }
+      const fechaFormateada = fecha.toISOString().split('T')[0];
+      const inputFecha = document.querySelector('#fecha');
+      if (inputFecha) {
+        inputFecha.value = fechaFormateada;
+        cita.fecha = fechaFormateada;
+      }
+
+      // Hora: valor fijo (puedes cambiarlo si quieres aleatorio)
+      const inputHora = document.querySelector('#hora');
+      if (inputHora) {
+        inputHora.value = '14:00';
+        cita.hora = '14:00';
+      }
+
+      // Seleccionar entre 1 y 4 servicios al azar
+      const servicios = Array.from(document.querySelectorAll('.servicio'));
+      if (servicios.length === 0) return;
+
+      // Deseleccionar cualquiera previamente seleccionado
+      servicios.forEach((s) => {
+        if (s.classList.contains('seleccionado')) s.click();
+      });
+
+      const maxSeleccion = Math.min(4, servicios.length);
+      const cantidad = Math.floor(Math.random() * maxSeleccion) + 1; // 1..maxSeleccion
+
+      // Generar índices aleatorios únicos
+      const indices = servicios.map((_, i) => i);
+      // Fisher-Yates shuffle
+      for (let i = indices.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [indices[i], indices[j]] = [indices[j], indices[i]];
+      }
+
+      const seleccionados = indices.slice(0, cantidad);
+      seleccionados.forEach((idx) => servicios[idx].click());
+    });
+  }
+  //!section - FIN boton autollenar
 });
 
 function iniciarApp() {
