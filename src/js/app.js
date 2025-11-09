@@ -19,6 +19,9 @@ function iniciarApp() {
   paginaAnterior();
   paginaSiguiente();
   consultarAPI();
+  nombreCliente(); //Añade el nobre del cliente al objeto de cita
+  seleccionarFecha(); //Anade la fecha al objeto de cita
+  seleccionarHora(); //Anade la hora de la cita en el objeto
 }
 function mostrarSeccion() {
   //Ocultar la seccion anterior
@@ -150,4 +153,53 @@ function seleccionarServicio(servicio) {
   }
 
   console.log(cita);
+}
+
+function nombreCliente() {
+  cita.nombre = document.querySelector('#nombre').value;
+}
+
+function seleccionarFecha() {
+  const inputFecha = document.querySelector('#fecha');
+  inputFecha.addEventListener('input', function (e) {
+    const dia = new Date(e.target.value).getUTCDay();
+    if ([0, 6].includes(dia)) {
+      e.target.value = '';
+      mostrarAlerta('Fines de semana no se aceptan citas', 'error');
+    } else {
+      cita.fecha = e.target.value;
+    }
+  });
+}
+
+function seleccionarHora() {
+  const inputHora = document.querySelector('#hora');
+  inputHora.addEventListener('input', function (e) {
+    const horaCita = e.target.value;
+    const hora = horaCita.split(':')[0];
+    if (hora < 10 || hora > 18) {
+      e.target.value = '';
+      mostrarAlerta('Hora no disponible', 'error');
+    } else {
+      cita.hora = e.target.value;
+    }
+  });
+}
+
+function mostrarAlerta(mensaje, tipo) {
+  //previene que se creen multiples alertas
+  const alertaPrevia = document.querySelector('.alerta');
+  if (alertaPrevia) return;
+  // Script para crear la alerta
+  const alerta = document.createElement('DIV');
+  alerta.textContent = mensaje;
+  alerta.classList.add('alerta', tipo);
+
+  const formulario = document.querySelector('#paso-2 p');
+  formulario.appendChild(alerta);
+
+  //Eliminar la alerta
+  setTimeout(() => {
+    alerta.remove();
+  }, 2000);
 }
