@@ -308,7 +308,7 @@ function mostrarResumen() {
 
   const nombreCliente = document.createElement('P');
   nombreCliente.innerHTML = `<span>Nombre:</span> ${nombre}`;
-  console.log(fecha);
+
   //Formatear la fecha en español
   const fechaObj = new Date(fecha);
   const mes = fechaObj.getMonth();
@@ -328,7 +328,24 @@ function mostrarResumen() {
 
   const horaCita = document.createElement('P');
   horaCita.innerHTML = `<span>Hora:</span> ${hora} Hrs.`;
+
+  //Boton para Crear una cita
+  const botonReservar = document.createElement('BUTTON');
+  botonReservar.classList.add('boton');
+  botonReservar.textContent = 'Reservar Cita';
+  botonReservar.onclick = reservarCita;
+  
   resumen.appendChild(nombreCliente);
   resumen.appendChild(fechaCita);
   resumen.appendChild(horaCita);
+  resumen.appendChild(botonReservar);
+}
+
+function reservarCita() {
+ const datos= new FormData();
+ datos.append('nombre', cita.nombre);
+ datos.append('fecha', cita.fecha);
+ datos.append('hora', cita.hora);
+ datos.append('servicios', JSON.stringify(cita.servicios));
+/*  console.log([...datos]); */
 }
