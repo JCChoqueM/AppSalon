@@ -334,18 +334,24 @@ function mostrarResumen() {
   botonReservar.classList.add('boton');
   botonReservar.textContent = 'Reservar Cita';
   botonReservar.onclick = reservarCita;
-  
+
   resumen.appendChild(nombreCliente);
   resumen.appendChild(fechaCita);
   resumen.appendChild(horaCita);
   resumen.appendChild(botonReservar);
 }
 
-function reservarCita() {
- const datos= new FormData();
- datos.append('nombre', cita.nombre);
- datos.append('fecha', cita.fecha);
- datos.append('hora', cita.hora);
- datos.append('servicios', JSON.stringify(cita.servicios));
-/*  console.log([...datos]); */
+async function reservarCita() {
+  const datos = new FormData();
+  datos.append('nombre', cita.nombre);
+
+  //Peticion hacia la api
+  const url = 'http://localhost:3000/api/citas';
+  const respuesta = await fetch(url, {
+    method: 'POST',
+  });
+  const resultado = await respuesta.json();
+  console.log(resultado);
+
+  /*  console.log([...datos]); */
 }
