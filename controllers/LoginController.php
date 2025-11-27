@@ -28,7 +28,7 @@ class LoginController
                         //autenticar el usuario
                         session_start();
                         $_SESSION['id'] = $usuario->id;
-                        $_SESSION['nombre'] = $usuario->nombre;
+                        $_SESSION['nombre'] = $usuario->nombre . " " . $usuario->apellido;
                         $_SESSION['email'] = $usuario->email;
                         $_SESSION['login'] = true;
 
@@ -102,9 +102,9 @@ class LoginController
             //Mostrar mensaje de error
             Usuario::setAlerta('error', 'Token no Valido');
             $error = true;
-        } 
+        }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        
+
             //Leer el nuevo password y guardarlo
             $password = new Usuario($_POST);
             $alertas = $password->validarPassword();
@@ -116,7 +116,7 @@ class LoginController
                 $usuario->hashPassword();
                 $usuario->token = null;
                 $resultado = $usuario->guardar();
-           
+
                 if ($resultado) {
                     header('Location: /');
                 }
