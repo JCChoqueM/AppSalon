@@ -20,17 +20,29 @@
     width: 95%;
     margin: 0 auto;
     padding: 3rem 0;
-   
   }
   .nombre-pagina {
     text-align: center;
-   margin:5rem 0;
-   font-weight: v.$bold;
+    margin: 5rem 0;
+    font-weight: v.$bold;
     @include m.tablet {
       margin-top: 0;
     }
   }
   .descripcion-pagina {
     text-align: center;
+  }
+}
+
+.barra {
+  margin: v.$separacion 0;
+  @include m.tablet {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .boton {
+    @include m.boton(v.$negro, v.$blanco);
+    margin: 0 auto;
   }
 }
