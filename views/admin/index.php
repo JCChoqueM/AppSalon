@@ -18,4 +18,7 @@ include_once __DIR__ . '/../templates/barra.php';
 
 </div>
 
-<div id="citas-admin"></div>
+<div id="citas-admin">
+
+
+</div>

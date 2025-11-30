@@ -138,6 +138,14 @@ class ActiveRecord
         return array_shift($resultado);
     }
 
+    // consulta Plana de SQL (utilizar  cuando los metodos no son suficientes)
+    public static function SQL($query)
+    {
+        $resultado = self::consultarSQL($query);
+        return $resultado;
+    }
+
+
     // Obtener Registros con cierta cantidad
     public static function get($limite)
     {
@@ -158,11 +166,11 @@ class ActiveRecord
         $query .= " ) VALUES (' ";
         $query .= join("', '", array_values($atributos));
         $query .= " ') ";
-    /*     return json_encode([
+        /*     return json_encode([
             'query' => $query,
         ]); */
 
-        
+
         // Resultado de la consulta
         $resultado = self::$db->query($query);
         return [
