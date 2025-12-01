@@ -24,9 +24,10 @@ include_once __DIR__ . '/../templates/barra.php';
         <?php
 
         $idCita = 0; //para que no marque undefined
-        foreach ($citas as $cita) { //inicio foreach
+        foreach ($citas as $key => $cita) { //inicio foreach
 
             if ($idCita !== $cita->id) { // inicio if
+                $total = 0;
         ?>
                 <li>
                     <p> ID: <span> <?php echo $cita->id; ?> </span></p>
@@ -39,14 +40,21 @@ include_once __DIR__ . '/../templates/barra.php';
                 <?php
                 $idCita = $cita->id;
             } // fin if 
+            $total += $cita->precio;
                 ?>
 
-                <p class="servicio"> <?php echo $cita->servicio; ?> </p>
+                <p class="servicio"> <?php echo $cita->servicio . " " . $cita->precio; ?> </p>
+                <!-- subBloque1 suma total de servicios[inicio]-->
                 <?php
-        } //fin foreach
-        ?>
-        </li>
-
-
+                $actual = $cita->id;
+                $proximo = $citas[$key + 1]->id ?? 0;
+                if (esUltimo($actual, $proximo)) { ?>
+                    <p class="total">Total: <span>Bs. <?php echo $total; ?> </span> </p>
+            <?php
+                }
+            } //fin foreach
+            ?>
+            <!-- !subBloque1 fin - suma total de servicios[fin]-->
+                </li>
     </ul>
 </div>
