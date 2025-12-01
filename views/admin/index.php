@@ -10,7 +10,8 @@ include_once __DIR__ . '/../templates/barra.php';
             <input
                 type="date"
                 name="fecha"
-                id="fecha" />
+                id="fecha"
+                value="<?php echo $fecha; ?>" />
         </div>
 
 
