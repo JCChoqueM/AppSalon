@@ -162,7 +162,7 @@ function paginaSiguiente() {
 
 async function consultarAPI() {
   try {
-    const url = 'http://localhost:3000/api/servicios';
+    const url = 'api/servicios';
     const resultado = await fetch(url);
     const servicios = await resultado.json();
     mostrarServicios(servicios);
@@ -361,7 +361,7 @@ async function reservarCita() {
   // console.log([...datos]);
   try {
     //Peticion hacia la api
-    const url = 'http://localhost:3000/api/citas';
+    const url = '/api/citas';
     const respuesta = await fetch(url, {
       method: 'POST',
       body: datos,
@@ -383,12 +383,11 @@ async function reservarCita() {
       });
     }
   } catch (error) {
-
     Swal.fire({
-  icon: "error",
-  title: "Error",
-  text: "Hubo un error al guardar la cita",
-});
+      icon: 'error',
+      title: 'Error',
+      text: 'Hubo un error al guardar la cita',
+    });
   }
 
   /*  console.log([...datos]); */
